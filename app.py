@@ -11,7 +11,7 @@ st.set_page_config(page_title="💰 Ultimate Financial Dashboard", layout="wide"
 st.image("https://cdn-icons-png.flaticon.com/512/2920/2920298.png", width=80)
 st.title("💰 Ultimate Financial Dashboard")
 st.write("""
-Track your expenses, explore financial concepts, get real-time market, crypto, commodity, and economic data, and find top resources, all in this simple program!.
+Track your expenses, explore financial concepts, get real-time market, crypto, commodity, and economic data, and find top resources, all in this simple program!
 """)
 
 # SIDEBAR NAVIGATION
@@ -273,4 +273,5 @@ elif menu == "Visualization":
         df = pd.read_csv(spending, parse_dates=['Date'])
         st.line_chart(df.groupby('Date')['Amount'].sum())
         st.bar_chart(df.groupby('Category')['Amount'].sum())
+
 
