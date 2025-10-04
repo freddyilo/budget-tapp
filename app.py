@@ -43,7 +43,27 @@ elif menu == "Markets":
     st.header("📈 Real Market Data")
     st.image("https://cdn-icons-png.flaticon.com/512/190/190411.png", width=60)
     tabs = st.tabs(["Stocks", "Currencies", "Interest Rates"])
-    
+
+if menu == "Markets":
+    st.header("📈 Real Market Data")
+    st.image("https://cdn-icons-png.flaticon.com/512/190/190411.png", width=60)
+    st.subheader("Live Stock Quotes")
+    st.write("Get real-time prices for any stock. Example: AAPL, TSLA, AMZN.")
+    symbol = st.text_input("Stock Symbol:", "AAPL")
+    api_key = "YOUR_ALPHA_VANTAGE_API_KEY"  # Replace with your actual key
+    if symbol:
+        url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={api_key}"
+        try:
+            response = requests.get(url)
+            data = response.json()
+            if "Global Quote" in data and "05. price" in data["Global Quote"]:
+                price = float(data['Global Quote']['05. price'])
+                st.metric(f"{symbol} Price", f"${price:,.2f}")
+            else:
+                st.warning(f"No data found for {symbol}. Try another symbol.")
+        except Exception as e:
+            st.error("Error fetching stock data. Please check your API key and symbol.")
+   
     # -- Stocks --
     with tabs[0]:
         st.subheader("Stocks (Demo: Apple, Google)")
@@ -158,3 +178,4 @@ elif menu == "Money Flow":
         link=dict(source=source, target=target, value=values)
     )])
     st.plotly_chart(fig, use_container_width=True)
+
