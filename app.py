@@ -128,23 +128,24 @@ elif menu == "Indices":
 
 # ECONOMIC INDICATORS TAB
 elif menu == "Economics":
-    st.header("📊 Economic Indicators")
-    st.write("Live U.S. economic data (FRED API required for full access)")
-    indicators = {
-        "US Inflation Rate": "CPILFESL",
-        "US Unemployment Rate": "UNRATE",
-        "US GDP": "GDP"
-    }
-    fred_key = "YOUR_FRED_API_KEY"
-    for name, series_id in indicators.items():
-        try:
-            url = f"https://api.stlouisfed.org/fred/series/observations?series_id={series_id}&api_key={fred_key}&file_type=json"
-            data = requests.get(url).json()
-            latest = data["observations"][-1]
-            st.metric(name, f"{latest['value']}")
-        except Exception:
-            st.info(f"Demo: Replace with your FRED API key for {name}.")
+st.header("📊 Economic Indicators (US)")
 
+fred_key = "1c4e78d5756c29a8cb90b92cf5beef02"  # Your real key
+
+indicators = {
+    "US Inflation Rate": "CPILFESL",
+    "US Unemployment Rate": "UNRATE",
+    "US GDP": "GDP"
+}
+
+for name, series_id in indicators.items():
+    try:
+        url = f"https://api.stlouisfed.org/fred/series/observations?series_id={series_id}&api_key={fred_key}&file_type=json"
+        data = requests.get(url).json()
+        latest = data["observations"][-1]
+        st.metric(name, f"{latest['value']}")
+    except Exception:
+        st.info(f"Could not fetch data for {name}.")
 # CONCEPTS TAB
 elif menu == "Concepts":
     st.header("📚 Financial Concepts & Calculators")
@@ -273,4 +274,5 @@ elif menu == "Visualization":
         df = pd.read_csv(spending, parse_dates=['Date'])
         st.line_chart(df.groupby('Date')['Amount'].sum())
         st.bar_chart(df.groupby('Category')['Amount'].sum())
+
 
