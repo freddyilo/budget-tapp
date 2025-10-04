@@ -80,12 +80,9 @@ elif menu == "Insights":
 
     except:
         st.error("⚠️ Could not fetch live exchange rates.")
-
-    # Add space for global inflation or stock index
-    st.subheader("📈 Stock Market Snapshot (Example)")
-    st.write("Future expansion: add stock index or inflation API here.")
-
+        
 # --- SUMMARY ---
 elif menu == "Summary":
     st.header("📊 Full Summary")
     st.write("This section will give an overview once more history tracking is added.")
+
