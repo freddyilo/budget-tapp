@@ -1,4 +1,3 @@
-!pip install yfinance
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -274,3 +273,4 @@ elif menu == "Visualization":
         df = pd.read_csv(spending, parse_dates=['Date'])
         st.line_chart(df.groupby('Date')['Amount'].sum())
         st.bar_chart(df.groupby('Category')['Amount'].sum())
+
